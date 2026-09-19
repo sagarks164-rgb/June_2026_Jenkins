@@ -1,8 +1,18 @@
 pipeline {
-    agent none 
+    agent any
+
+    parameters {
+        string(defaultValue: 'main', description: 'Provide the branch to build and deploy', name: 'BRANCH')
+        
+        choice(choices: ['TEST', 'QA', 'PRE-PROD', 'PROD'], 
+               description: 'Choose env to deploy ', 
+               name: 'ENVIRONMENT')
+
+        booleanParam defaultValue: true, description: 'Un check this to actually deploy', name: 'DRY-RUN'
+    }
+
     stages {
         stage('STAGE1') {
-            agent any 
             steps {
                 sh '''
                     ls -lrt
@@ -12,9 +22,6 @@ pipeline {
         }
 
         stage('STAGE2') {
-            agent {
-                label 'slave1'
-            }
             steps {
                 sh '''
                     pwd 
@@ -25,9 +32,6 @@ pipeline {
         }
 
         stage('STAGE3') {
-            agent {
-                label 'slave2'
-            }
             steps {
                 echo "This is Stage3"
                 sh 'sleep 5'
@@ -35,7 +39,6 @@ pipeline {
         }
 
         stage('STAGE4') {
-            agent any
             steps {
                  sh 'echo THis is STAGE4'
                  sh 'sleep 5'

@@ -15,6 +15,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh '''
+                        ls -lrt
                         exit 1
                     '''
                 }

@@ -5,6 +5,7 @@ pipeline {
         stage('STAGE1') {
             steps {
                sh '''
+                    ls -lrt
                     sleep 5
                '''
             }

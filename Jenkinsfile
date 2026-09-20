@@ -2,14 +2,10 @@ pipeline {
     agent any
 
     parameters {
-        string(defaultValue: 'main', description: 'Provide the branch to build and deploy', name: 'BRANCH')
-        
-        choice(choices: ['TEST', 'QA', 'PRE-PROD', 'PROD'], 
-               description: 'Choose env to deploy ', 
-               name: 'ENVIRONMENT')
-
-        booleanParam defaultValue: true, description: 'Un check this to actually deploy', name: 'DRY-RUN'
-    }
+              string defaultValue: 'main', description: 'Provide the branch to build and deploy', name: 'Branch'
+              choice choices: ['\'TEST\'', '\'QA\'', '\'PRE-PROD\'', '\'PROD\''], description: 'choose env to deploy', name: 'environment'
+              booleanParam defaultValue: true, description: 'Un-check this to actual deploy', name: '\'DRY RUN\''
+}
 
     stages {
         stage('STAGE1') {
@@ -45,4 +41,4 @@ pipeline {
             }
         }
     }
-}
+}   
